@@ -6,51 +6,64 @@ document.querySelector('#app').innerHTML = `
   </div>
 `
 
-function exercise(name, seconds) {
+function exercise(name, seconds, sound) {
   this.name = name;
   this.seconds = seconds;
+  this.sound = sound;
 }
 
+var switchAudio = new Audio('switch.m4a');
+var getReadyAudio = new Audio('getready.m4a');
+var restAudio = new Audio('rest.m4a');
+var goAudio = new Audio('go.m4a');
+
 function set() {
+  var plankTime = 45;
+  var sideTime = 30;
+  var bridgeTime = 20;
+  var getReadyTime = 5;
   return [
-    new exercise('Get Ready', 5),
-    new exercise('Front Plank', 45),
-    new exercise('Side Plank (Left)', 30),
-    new exercise('Side Plank (Right)', 30),
-    new exercise('Get Ready to Bridge', 5),
-    new exercise('Single Leg Bridge (Left)', 20),
-    new exercise('Single Leg Bridge (Right)', 20),
+    new exercise('Get Ready', getReadyTime, getReadyAudio),
+    new exercise('Front Plank', plankTime, goAudio),
+    new exercise('Side Plank (Left)', sideTime, switchAudio),
+    new exercise('Side Plank (Right)', sideTime, switchAudio),
+    new exercise('Single Leg Bridge (Left)', bridgeTime + getReadyTime, switchAudio),
+    new exercise('Single Leg Bridge (Right)', bridgeTime, switchAudio),
   ]
 }
 
 function rest() {
-  return new exercise('Rest', 60);
+  return new exercise('Rest', 120, restAudio);
 }
 
-function getQueue() {
-  var queue = [];
-  queue = queue.concat(set());
-  queue.push(rest());
-  queue = queue.concat(set());
-  queue.push(rest());
-  queue = queue.concat(set());
-  queue.push(new exercise('Good Job', 60));
-  return queue;
+function getPlankItems() {
+  var plankitems = [];
+  plankitems = plankitems.concat(set());
+  plankitems.push(rest());
+  plankitems = plankitems.concat(set());
+  plankitems.push(rest());
+  plankitems = plankitems.concat(set());
+  plankitems.push(new exercise('Good Job', 60, restAudio));
+  return plankitems;
 }
 
 async function doPlanks() {
-  var queue = getQueue();
+  var plankItems = getPlankItems();
 
-  const delay = ms => new Promise(res => setTimeout(res, ms));
+  var delay = ms => new Promise(res => setTimeout(res, ms));
 
-  for (var i = 0; i < queue.length; i++) {
-    const item = queue[i];
+  for (var i = 0; i < plankItems.length; i++) {
+    const item = plankItems[i];
 
     document.querySelector('#app').innerHTML = `
     <div>
       <span>${item.name}</span>
     </div>
     `
+
+    if (item.sound) {
+      item.sound.play();
+    }
 
     await delay(item.seconds * 100);
     console.log(item.name);
