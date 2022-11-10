@@ -2,9 +2,42 @@ import './style.css'
 
 document.querySelector('#app').innerHTML = `
   <div>
-    <h1>Do Planks</h1>
+    <button id='do-planks-button'>Do Planks</button>
   </div>
 `
+
+function exercise(name, seconds) {
+  this.name = name;
+  this.seconds = seconds;
+}
+
+function set() {
+  return [
+    new exercise('Front Plank', 45),
+    new exercise('Side Plank (Left)', 30),
+    new exercise('Side Plank (Right)', 30),
+    new exercise('Get Ready to Bridge', 5),
+    new exercise('Single Leg Bridge (Left)', 20),
+    new exercise('Single Leg Bridge (Right)', 20),
+  ]
+}
+
+function restAndReady() {
+  return [
+    new exercise('Rest', 20),
+    new exercise('Get Ready', 5),
+  ]
+}
+
+var queue = [];
+queue = queue.concat(set());
+queue = queue.concat(restAndReady());
+queue = queue.concat(set());
+queue = queue.concat(restAndReady());
+queue = queue.concat(set());
+queue.push(new exercise('Good Job', 60));
+
+console.log(queue);
 
 // current idea for ui is extremely minimal and bare bones (as is the spirit of do planks)
 // at a high level, three sets of planks are done over a time span of ~15 minutes

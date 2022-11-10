@@ -4,7 +4,7 @@
   line-height: 24px;
   font-weight: 400;
 
-  color: black;
+  color: rgb(53, 53, 53);
   background-color: white;
 
   font-synthesis: none;
@@ -22,8 +22,11 @@ body {
   min-height: 100vh;
 }
 
-h1 {
+#do-planks-button {
   font-size: 60px;
+  background-color: white;
+  border: none;
+  cursor: pointer;
 }
 
 #app {
