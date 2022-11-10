@@ -1,9 +1,7 @@
 import './style.css'
 
 document.querySelector('#app').innerHTML = `
-  <div>
-    <button id='do-planks-button'>Do Planks</button>
-  </div>
+  <div id='do-planks-button'>Do Planks</div>
 `
 
 function exercise(name, seconds, sound) {
@@ -56,9 +54,7 @@ async function doPlanks() {
     const item = plankItems[i];
 
     document.querySelector('#app').innerHTML = `
-    <div>
       <span>${item.name}</span>
-    </div>
     `
 
     if (item.sound) {
