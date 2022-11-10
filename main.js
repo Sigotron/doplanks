@@ -61,7 +61,7 @@ async function doPlanks() {
       item.sound.play();
     }
 
-    await delay(item.seconds * 100);
+    await delay(item.seconds * 1000);
     console.log(item.name);
   }
 }
