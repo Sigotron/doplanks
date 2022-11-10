@@ -1,5 +1,3 @@
-import '/style.css'
-
 document.querySelector('#app').innerHTML = `
   <div id='do-planks-button'>Do Planks</div>
 `
@@ -47,7 +45,6 @@ function getPlankItems() {
 
 async function doPlanks() {
   var plankItems = getPlankItems();
-
   var delay = ms => new Promise(res => setTimeout(res, ms));
 
   for (var i = 0; i < plankItems.length; i++) {
