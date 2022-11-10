@@ -22,6 +22,10 @@ body {
   min-height: 100vh;
 }
 
+span {
+  font-size: 60px;
+}
+
 #do-planks-button {
   font-size: 60px;
   background-color: white;

@@ -24,10 +24,10 @@ function set() {
 }
 
 function rest() {
-  return new exercise('Rest', 20);
+  return new exercise('Rest', 60);
 }
 
-function doPlanks() {
+function getQueue() {
   var queue = [];
   queue = queue.concat(set());
   queue.push(rest());
@@ -35,13 +35,31 @@ function doPlanks() {
   queue.push(rest());
   queue = queue.concat(set());
   queue.push(new exercise('Good Job', 60));
+  return queue;
+}
 
-  console.log(queue);
+async function doPlanks() {
+  var queue = getQueue();
+
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+
+  for (var i = 0; i < queue.length; i++) {
+    const item = queue[i];
+
+    document.querySelector('#app').innerHTML = `
+    <div>
+      <span>${item.name}</span>
+    </div>
+    `
+
+    await delay(item.seconds * 100);
+    console.log(item.name);
+  }
 }
 
 document.getElementById('do-planks-button').onclick = function() {
   doPlanks();
-};
+}
 
 // current idea for ui is extremely minimal and bare bones (as is the spirit of do planks)
 // at a high level, three sets of planks are done over a time span of ~15 minutes
