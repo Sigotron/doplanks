@@ -35,7 +35,7 @@ function exercise(name, seconds, sound) {
     plankitems = plankitems.concat(set());
     plankitems.push(rest());
     plankitems = plankitems.concat(set());
-    plankitems.push(new exercise('Good Job', 60, restAudio));
+    plankitems.push(new exercise('Good Job', 5, restAudio));
     return plankitems;
   }
   
@@ -57,4 +57,8 @@ function exercise(name, seconds, sound) {
       await delay(item.seconds * 1000);
       console.log(item.name);
     }
+
+    document.querySelector('#app').innerHTML = `
+     <img src="so_good.png" />
+    `
   }
