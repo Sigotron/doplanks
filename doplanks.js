@@ -1,13 +1,16 @@
+import { showProgressBar } from "./progressbar";
+
 var switchAudio = new Audio('switch.mp3');
 var getReadyAudio = new Audio('getready.mp3');
 var restAudio = new Audio('rest.mp3');
 var goAudio = new Audio('go.mp3');
 
-function exercise(name, seconds, sound) {
-    this.name = name;
-    this.seconds = seconds;
-    this.sound = sound;
-  }
+function exercise(name, seconds, sound, showProgressBar = true) {
+  this.name = name;
+  this.seconds = seconds;
+  this.sound = sound;
+  this.showProgressBar = showProgressBar;
+}
   
   function set() {
     var plankTime = 45;
@@ -15,12 +18,12 @@ function exercise(name, seconds, sound) {
     var bridgeTime = 20;
     var getReadyTime = 5;
     return [
-      new exercise('Get Ready', getReadyTime, getReadyAudio),
+      new exercise('Get Ready', getReadyTime, getReadyAudio, false),
       new exercise('Front Plank', plankTime, goAudio),
-      new exercise('Side Plank (Left)', sideTime, switchAudio),
-      new exercise('Side Plank (Right)', sideTime, switchAudio),
-      new exercise('Single Leg Bridge (Left)', bridgeTime + getReadyTime, switchAudio),
-      new exercise('Single Leg Bridge (Right)', bridgeTime, switchAudio),
+      new exercise('Side Plank Left', sideTime, switchAudio),
+      new exercise('Side Plank Right', sideTime, switchAudio),
+      new exercise('Single Leg Bridge Left', bridgeTime + getReadyTime, switchAudio),
+      new exercise('Single Leg Bridge Right', bridgeTime, switchAudio),
     ]
   }
   
@@ -29,14 +32,15 @@ function exercise(name, seconds, sound) {
   }
 
   function getPlankItems() {
-    var plankitems = [];
-    plankitems = plankitems.concat(set());
-    plankitems.push(rest());
-    plankitems = plankitems.concat(set());
-    plankitems.push(rest());
-    plankitems = plankitems.concat(set());
-    plankitems.push(new exercise('Good Job', 5, restAudio));
-    return plankitems;
+    var plankItems = [];
+    for (var i = 0; i < 3; i++) {
+      plankItems = plankItems.concat(set());
+      if (i < 3) {
+        plankItems.push(rest())
+      }
+    }
+    plankItems.push(new exercise('Good Job', 5, restAudio, false));
+    return plankItems;
   }
   
   export async function doPlanks() {
@@ -47,14 +51,15 @@ function exercise(name, seconds, sound) {
       const item = plankItems[i];
   
       document.querySelector('#app').innerHTML = `
-        <span>${item.name}</span>
+        <div id="parent">
+          <div id="name">${item.name}</div>
+        </div>
       `
+
+      if (item.showProgressBar) showProgressBar(item.seconds, item.name);
+      if (item.sound) item.sound.play();
   
-      if (item.sound) {
-        item.sound.play();
-      }
-  
-      await delay(item.seconds * 1000);
+      await delay(item.seconds * 100); // todo 1000
       console.log(item.name);
     }
 

@@ -19,13 +19,12 @@ body {
   min-height: 100vh;
 }
 
-span {
-  animation: fade .5s linear;
+img {
+height: 250px
 }
 
-@keyframes fade {
-  0%{ opacity: 0 }
-  100% {opacity: 1 }
+#name {
+  animation: fade .3s linear;
 }
 
 #do-planks-button {
@@ -37,4 +36,28 @@ span {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+}
+
+#parent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#progress-bar {
+  animation: fade .5s linear;
+  margin-top: 18px;
+  height: 12px;
+  width: 400px;
+  background-color: lightgray
+}
+
+#progress-bar-child {
+  height: 100%;
+  background-color: rgb(70, 70, 70)
+}
+
+@keyframes fade {
+  0%{ opacity: 0 }
+  100% {opacity: 1 }
 }
