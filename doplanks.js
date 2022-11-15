@@ -1,4 +1,4 @@
-import { showProgressBar } from "./progressbar";
+import { showProgressBar } from './progressbar.js';
 
 var switchAudio = new Audio('switch.mp3');
 var getReadyAudio = new Audio('getready.mp3');
