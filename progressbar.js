@@ -8,7 +8,7 @@ export function showProgressBar(seconds) {
   document.getElementById('parent').appendChild(progressBar);
 
   progressBarChild.style.width = `0%`;
-  progressBarChild.style.transition = `width ${seconds / 10}s linear`
+  progressBarChild.style.transition = `width ${seconds}s linear`
   progressBarChild.offsetHeight; // hack make element update
   progressBarChild.style.width = `100%`;
 }

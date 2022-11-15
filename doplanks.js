@@ -59,7 +59,7 @@ function exercise(name, seconds, sound, showProgressBar = true) {
       if (item.showProgressBar) showProgressBar(item.seconds, item.name);
       if (item.sound) item.sound.play();
   
-      await delay(item.seconds * 100); // todo 1000
+      await delay(item.seconds * 1000);
       console.log(item.name);
     }
 
