@@ -32,10 +32,11 @@ function exercise(name, seconds, sound, showProgressBar = true) {
   }
 
   function getPlankItems() {
+    var numSets = 3;
     var plankItems = [];
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < numSets; i++) {
       plankItems = plankItems.concat(set());
-      if (i < 3) {
+      if (i < numSets - 1) {
         plankItems.push(rest())
       }
     }
